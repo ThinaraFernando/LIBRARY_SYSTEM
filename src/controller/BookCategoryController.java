@@ -13,6 +13,12 @@ import javafx.scene.control.TableView;
 
 public class BookCategoryController {
 
+    //    private BookCategoryService bookCategoryService = (BookCategoryService) ServiceFactory.getInstance().getService(ServiceType.BookCategory);
+    public void initialize() {
+
+    }
+
+
     @FXML
     private JFXButton btnAdd;
 
@@ -51,6 +57,17 @@ public class BookCategoryController {
 
     @FXML
     private TextField txtSearch;
+
+    @FXML
+    void btnAddOnAction(ActionEvent event) {
+        txtCategoryId.clear();
+        txtCategoryName.clear();
+        tblCategory.getSelectionModel().clearSelection();
+        txtCategoryId.setDisable(false);
+        txtCategoryName.setDisable(false);
+        
+    }
+
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {

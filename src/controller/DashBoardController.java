@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +14,8 @@ public class DashBoardController {
 
     @FXML
     private AnchorPane main;
+
+      
 
     @FXML
     void btnBookCategoriesOnAction(ActionEvent event)throws IOException {
@@ -57,7 +58,7 @@ public class DashBoardController {
     void btnMembersOnAction(ActionEvent event)throws IOException {
         initUI("Members.fxml");
         Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Course Form");
+        stage.setTitle("Member Form");
 
     }
 
@@ -68,7 +69,7 @@ public class DashBoardController {
 
     @FXML
     void btnReturnBookOnAction(ActionEvent event) throws IOException {
-        initUI("ReturnForm.fxml");
+        initUI("Return Form.fxml");
         Stage stage = (Stage) root.getScene().getWindow();
         stage.setTitle("Return Book  Form");
 

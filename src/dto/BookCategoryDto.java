@@ -2,47 +2,34 @@ package dto;
 
 public class BookCategoryDto {
 
-    private String id;
-    private String CategoryName;
+    private int categoryId;
+    private String categoryName;
 
+    public BookCategoryDto() {}
 
-    public BookCategoryDto() {
+    public BookCategoryDto(int categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
-
-    public BookCategoryDto(String id, String categoryName) {
-        this.id = id;
-        this.CategoryName = categoryName;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-
-    public String getId() {
-        return id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
-
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     public String getCategoryName() {
-        return CategoryName;
+        return categoryName;
     }
-
 
     public void setCategoryName(String categoryName) {
-        this.CategoryName = categoryName;
+        this.categoryName = categoryName;
     }
-
 
     @Override
     public String toString() {
-        return "BookCategoryDto [id=" + id + ", CategoryName=" + CategoryName + "]";
+        return "BookCategoryDto [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
     }
-
-   
-
-
-
 }

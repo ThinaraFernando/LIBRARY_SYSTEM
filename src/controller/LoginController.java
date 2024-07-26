@@ -35,7 +35,7 @@ public class LoginController {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.setTitle("DashBoard Form");
         stage.centerOnScreen();
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/DashBoardForm.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/DashBoardForm.fxml"))));
 
     }
 
@@ -44,7 +44,7 @@ public class LoginController {
          Stage stage = (Stage) root.getScene().getWindow();
         stage.setTitle("Register Form");
         stage.centerOnScreen();
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/RegistrationForm.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/RegistrationForm.fxml"))));
 
     }
 

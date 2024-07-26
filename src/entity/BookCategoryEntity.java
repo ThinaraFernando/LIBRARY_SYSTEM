@@ -1,43 +1,36 @@
 package entity;
 
-public class BookCategoryEntity implements SuperEntity {
+public class BookCategoryEntity {
 
+    private int categoryId;
+    private String categoryName;
 
-    private String id;
-    private String CategoryName;
+    public BookCategoryEntity() {}
 
-    public BookCategoryEntity() {
+    public BookCategoryEntity(int categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
-    
-
-    public BookCategoryEntity(String id, String categoryName) {
-        this.id = id;
-        this. CategoryName = categoryName;
-    }
- 
-
-
-    public String getId() {
-        return id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {
-        return CategoryName;
+        return categoryName;
     }
 
     public void setCategoryName(String categoryName) {
-            this.CategoryName = categoryName;
+        this.categoryName = categoryName;
     }
 
     @Override
     public String toString() {
-        return "BookCategoryEntity [id=" + id + ", CategoryName=" + CategoryName + "]";
+        return "BookCategoryEntity [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
     }
-
-
 }
+

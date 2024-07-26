@@ -34,12 +34,12 @@
             <Font name="Tw Cen MT Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lblBookId" layoutX="10.0" layoutY="98.0" prefHeight="26.0" prefWidth="163.0" text="Book ID" textFill="#fcf8f8" AnchorPane.bottomAnchor="501.20000000000005" AnchorPane.topAnchor="98.0">
+      <!-- <Label fx:id="lblBookId" layoutX="10.0" layoutY="98.0" prefHeight="26.0" prefWidth="163.0" text="Book ID" textFill="#fcf8f8" AnchorPane.bottomAnchor="501.20000000000005" AnchorPane.topAnchor="98.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
-      </Label>
-      <Label fx:id="lblTitle" layoutX="10.0" layoutY="154.0" prefHeight="26.0" prefWidth="163.0" text="Title" textFill="#efeaea">
+      </Label> -->
+      <!-- <Label fx:id="lblTitle" layoutX="10.0" layoutY="154.0" prefHeight="26.0" prefWidth="163.0" text="Title" textFill="#efeaea">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -48,8 +48,8 @@
          <font>
             <Font name="Tw Cen MT Bold" size="18.0" />
          </font>
-      </Label>
-      <Label fx:id="lblCategoryId" layoutX="10.0" layoutY="287.0" prefHeight="26.0" prefWidth="163.0" text="Category ID" textFill="#fcfafa">
+      </Label> -->
+      <!-- <Label fx:id="lblCategoryId" layoutX="10.0" layoutY="287.0" prefHeight="26.0" prefWidth="163.0" text="Category ID" textFill="#fcfafa">
          <font>
             <Font name="Tw Cen MT Bold" size="18.0" />
          </font>
@@ -68,7 +68,7 @@
          <font>
             <Font name="Tw Cen MT Bold" size="18.0" />
          </font>
-      </Label>
+      </Label> -->
       <JFXButton fx:id="btnAdd" layoutX="39.0" layoutY="582.0" onAction="#btnAddOnAction" prefHeight="15.0" prefWidth="78.0" style="-fx-background-color: #FC427B; -fx-border-radius: 20;" text="ADD" />
       <JFXButton fx:id="btnDelete" layoutX="335.0" layoutY="582.0" onAction="#btnDeleteOnAction" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #FC427B; -fx-border-radius: 20;" text="DELETE" />
       <JFXButton fx:id="btnUpdate" layoutX="186.0" layoutY="582.0" onAction="#btnSUpdateOnAction" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #FC427B; -fx-border-radius: 20;" text="UPDATE" />

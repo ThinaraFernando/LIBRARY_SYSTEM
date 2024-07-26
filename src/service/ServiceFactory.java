@@ -16,8 +16,8 @@ public class ServiceFactory {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends SuperService> T getBO(ServiceType boType) {
-        switch (boType) {
+    public <T extends SuperService> T getService(ServiceType serviceType) {
+        switch (serviceType) {
             case BookCategory:
                 return (T) new BookCategoryServiceImpl();
             default:

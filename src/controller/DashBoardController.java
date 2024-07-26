@@ -15,63 +15,91 @@ public class DashBoardController {
     @FXML
     private AnchorPane main;
 
-      
-
     @FXML
-    void btnBookCategoriesOnAction(ActionEvent event)throws IOException {
-        initUI("Book Categories.fxml");
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Book Category Form");
-
+    void btnBookCategoriesOnAction(ActionEvent event) {
+        try {
+            initUI("BookCategory.fxml");
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setTitle("Book Category Form");
+        } catch (IOException e) {
+            e.printStackTrace();  // Log the exception
+        }
     }
 
     @FXML
-    void btnBooksOnAction(ActionEvent event)throws IOException {
-        initUI("Books.fxml");
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Book Form");
-
+    void btnBooksOnAction(ActionEvent event) {
+        try {
+            initUI("Books.fxml");
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setTitle("Book Form");
+        } catch (IOException e) {
+            e.printStackTrace();  // Log the exception
+        }
     }
 
     @FXML
-    void btnDashBoardOnAction(ActionEvent event)throws IOException  {
-        initUI("DefaultForm.fxml");
+    void btnDashBoardOnAction(ActionEvent event) {
+        try {
+            initUI("DefaultForm.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();  // Log the exception
+        }
     }
 
     @FXML
-    void btnIssueBookOnAction(ActionEvent event)throws IOException {
-        initUI("Issue Form.fxml");
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Course Form");
-
+    void btnIssueBookOnAction(ActionEvent event) {
+        try {
+            initUI("IssueForm.fxml");
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setTitle("Issue Form");
+        } catch (IOException e) {
+            e.printStackTrace();  // Log the exception
+        }
     }
 
     @FXML
-    void btnLogoutOnAction(ActionEvent event) throws IOException{
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Login Form");
-        stage.centerOnScreen();
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/LoginForm.fxml"))));
+    void btnLogoutOnAction(ActionEvent event) {
+        try {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setTitle("Login Form");
+            stage.centerOnScreen();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();  // Log the exception
+        }
     }
 
     @FXML
-    void btnMembersOnAction(ActionEvent event)throws IOException {
-        initUI("Members.fxml");
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Member Form");
-
+    void btnMembersOnAction(ActionEvent event) {
+        try {
+            initUI("Members.fxml");
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setTitle("Member Form");
+        } catch (IOException e) {
+            e.printStackTrace();  // Log the exception
+        }
     }
 
     private void initUI(String location) throws IOException {
-        this.main.getChildren().clear();
-        this.main.getChildren().add(FXMLLoader.load(this.getClass().getResource("/view/"+location)));
-    }
+        
+            if (location == null || location.isEmpty()) {
+                throw new IllegalArgumentException("Location cannot be null or empty");
+            }
+            this.main.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/" + location));
+            this.main.getChildren().add(loader.load());
+        }
+        
+    
 
     @FXML
-    void btnReturnBookOnAction(ActionEvent event) throws IOException {
-        initUI("Return Form.fxml");
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Return Book  Form");
-
+    void btnReturnBookOnAction(ActionEvent event) {
+        try {
+            initUI("ReturnForm.fxml");
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setTitle("Return Book Form");
+        } catch (IOException e) {
+            e.printStackTrace();  // Log the exception
+        }
     }
 }

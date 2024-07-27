@@ -2,12 +2,17 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 
+import dto.BookDto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import service.ServiceFactory;
+import service.ServiceType;
+import service.custom.BookService;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -21,52 +26,27 @@ public class BookController {
     private JFXButton btnDelete;
 
     @FXML
-    private Button btnSearch;
-
-    @FXML
     private JFXButton btnUpdate;
 
     @FXML
-    private TableColumn<?, ?> colAuthor;
+    private TableColumn<BookDto, String> colAuthor;
 
     @FXML
-    private TableColumn<?, ?> colBookId;
+    private TableColumn<BookDto, Integer> colBookId;
 
     @FXML
-    private TableColumn<?, ?> colCategoryId;
+    private TableColumn<BookDto, Integer> colCategoryId;
+
+    
 
     @FXML
-    private TableColumn<?, ?> colIsbn;
+    private TableColumn<BookDto, String> colPub;
 
     @FXML
-    private TableColumn<?, ?> colPub;
+    private TableColumn<BookDto, String> colTitle;
 
     @FXML
-    private TableColumn<?, ?> colTitle;
-
-    @FXML
-    private TableColumn<?, ?> colYear;
-
-    @FXML
-    private Label lblAuthor;
-
-    @FXML
-    private Label lblBookId;
-
-    @FXML
-    private TextField lblCategoryId;
-
-    @FXML
-    private TextField lblIsbn;
-
-    @FXML
-    private TextField lblPublisher;
-
-    @FXML
-    private Label lblTitle;
-
-    @FXML
-    private TextField lblYear;
+    private TableColumn<BookDto, Integer> colYear;
 
     @FXML
     private AnchorPane main;
@@ -75,7 +55,7 @@ public class BookController {
     private AnchorPane root;
 
     @FXML
-    private TableView<?> tblBook;
+    private TableView<BookDto> tblBook;
 
     @FXML
     private TextField txtAuthor;
@@ -84,25 +64,105 @@ public class BookController {
     private TextField txtBookId;
 
     @FXML
+    private TextField txtCategoryId;
+
+   
+    @FXML
+    private TextField txtPublisher;
+
+    @FXML
     private TextField txtTitle;
 
     @FXML
+    private TextField txtYear;
+
+    private BookService bookService = ServiceFactory.getInstance().getService(ServiceType.Books);
+
+    @FXML
+    void initialize() {
+        colBookId.setCellValueFactory(new PropertyValueFactory<>("bookID"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+        colCategoryId.setCellValueFactory(new PropertyValueFactory<>("categoryID"));
+        colPub.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+        loadBooks();
+    }
+
+    @FXML
     void btnAddOnAction(ActionEvent event) {
+         try {
+            BookDto book = new BookDto(
+                Integer.parseInt(txtBookId.getText()),
+                txtTitle.getText(),
+                txtAuthor.getText(),
+                Integer.parseInt(txtCategoryId.getText()),
+                txtPublisher.getText(),
+                Integer.parseInt(txtYear.getText())
+            );
+            boolean isAdded = bookService.add(book);
+            if (isAdded) {
+                loadBooks();
+                clearFields();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
 
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        try {
+            boolean isDeleted = bookService.delete(txtBookId.getText());
+            if (isDeleted) {
+                loadBooks();
+                clearFields();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
 
     }
 
     @FXML
-    void btnSUpdateOnAction(ActionEvent event) {
+    void btnUpdateOnAction(ActionEvent event) {
+        try {
+            BookDto book = new BookDto(
+                Integer.parseInt(txtBookId.getText()),
+                txtTitle.getText(),
+                txtAuthor.getText(),
+                Integer.parseInt(txtCategoryId.getText()),
+                txtPublisher.getText(),
+                Integer.parseInt(txtYear.getText())
+            );
+            boolean isUpdated = bookService.update(book);
+            if (isUpdated) {
+                loadBooks();
+                clearFields();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
 
     }
 
-    @FXML
-    void btnSearchOnAction(ActionEvent event) {
-
+     private void loadBooks() {
+        try {
+            ObservableList<BookDto> bookList = FXCollections.observableArrayList(bookService.getAll());
+            tblBook.setItems(bookList);
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
     }
+
+    private void clearFields() {
+        txtBookId.clear();
+        txtTitle.clear();
+        txtAuthor.clear();
+        txtCategoryId.clear();
+        txtPublisher.clear();
+        txtYear.clear();
+    }
+
 }

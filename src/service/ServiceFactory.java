@@ -1,6 +1,8 @@
 package service;
 
 import service.custom.impl.BookCategoryServiceImpl;
+import service.custom.impl.BookServiceImpl;
+
 
 public class ServiceFactory {
     private static ServiceFactory serviceFactory;
@@ -20,6 +22,9 @@ public class ServiceFactory {
         switch (serviceType) {
             case BookCategory:
                 return (T) new BookCategoryServiceImpl();
+            case Books:
+                return (T) new BookServiceImpl();
+            
             default:
                 return null;
         }

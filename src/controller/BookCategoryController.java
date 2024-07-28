@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -66,6 +67,12 @@ public class BookCategoryController implements Initializable {
         colCategoryId.setCellValueFactory(new PropertyValueFactory<>("categoryId"));
         colCategoryName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
         loadTable();
+
+        tblCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                populateFormFields(newValue);
+            }
+        });
     }
 
     private void loadTable() {
@@ -75,6 +82,12 @@ public class BookCategoryController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+     private void populateFormFields(BookCategoryDto bookcategory) {
+        txtCategoryId.setText(String.valueOf(bookcategory.getCategoryId()));
+        txtCategoryName.setText(bookcategory.getCategoryName());
+        
     }
 
     
@@ -87,11 +100,16 @@ public class BookCategoryController implements Initializable {
                 txtCategoryName.getText()
             ));
             if (isAdded) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Category added successfully!");
                 loadTable();
                 clearFields();
+            }else{
+                showAlert(Alert.AlertType.WARNING, "Failed", "Book addition failed!");
             }
         } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while adding the book.");
             e.printStackTrace();
+
         }
     }
 
@@ -106,10 +124,15 @@ public class BookCategoryController implements Initializable {
         try {
             boolean isDeleted = bookCategoryService.delete(txtCategoryId.getText());
             if (isDeleted) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Book deleted successfully!");
+
                 loadTable();
                 clearFields();
+            }else{
+                showAlert(Alert.AlertType.WARNING, "Failed", "Book deletion failed!");
             }
         } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the book.");
             e.printStackTrace();
         }
     }
@@ -123,10 +146,15 @@ public class BookCategoryController implements Initializable {
                 txtCategoryName.getText()
             ));
             if (isUpdated) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Book updated successfully!");
+
                 loadTable();
                 clearFields();
+            }else{
+                showAlert(Alert.AlertType.WARNING, "Failed", "Book update failed!");
             }
         } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updaying the book.");
             e.printStackTrace();
         }
     }
@@ -137,6 +165,14 @@ public class BookCategoryController implements Initializable {
         txtCategoryId.clear();
         txtCategoryName.clear();
        
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
     

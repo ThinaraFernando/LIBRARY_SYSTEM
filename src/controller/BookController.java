@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import service.ServiceFactory;
 import service.ServiceType;
 import service.custom.BookService;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -87,6 +88,21 @@ public class BookController {
         colPub.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
         loadBooks();
+
+        tblBook.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                populateFormFields(newValue);
+            }
+        });
+    }
+
+    private void populateFormFields(BookDto book) {
+        txtBookId.setText(String.valueOf(book.getBookID()));
+        txtTitle.setText(book.getTitle());
+        txtAuthor.setText(book.getAuthor());
+        txtCategoryId.setText(String.valueOf(book.getCategoryID()));
+        txtPublisher.setText(book.getPublisher());
+        txtYear.setText(String.valueOf(book.getYear()));
     }
 
     @FXML
@@ -102,11 +118,15 @@ public class BookController {
             );
             boolean isAdded = bookService.add(book);
             if (isAdded) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Book added successfully!");
                 loadBooks();
                 clearFields();
+            }else{
+                showAlert(Alert.AlertType.WARNING, "Failed", "Book addition failed!");
             }
         } catch (Exception e) {
             e.printStackTrace(); 
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while adding the book.");
         }
 
     }
@@ -116,14 +136,19 @@ public class BookController {
         try {
             boolean isDeleted = bookService.delete(txtBookId.getText());
             if (isDeleted) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Book deleted successfully!");
                 loadBooks();
                 clearFields();
+            }else{
+                showAlert(Alert.AlertType.WARNING, "Failed", "Book deletion failed!");
             }
         } catch (Exception e) {
             e.printStackTrace(); 
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the book.");
+        }
         }
 
-    }
+    
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
@@ -138,11 +163,15 @@ public class BookController {
             );
             boolean isUpdated = bookService.update(book);
             if (isUpdated) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Book updated successfully!");
                 loadBooks();
                 clearFields();
+            }else{
+                showAlert(Alert.AlertType.WARNING, "Failed", "Book update failed!");
             }
         } catch (Exception e) {
             e.printStackTrace(); 
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updating the book.");
         }
 
     }
@@ -163,6 +192,14 @@ public class BookController {
         txtCategoryId.clear();
         txtPublisher.clear();
         txtYear.clear();
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

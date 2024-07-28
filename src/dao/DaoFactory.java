@@ -2,6 +2,7 @@ package dao;
 
 import dao.custom.impl.BookCategoryDaoImpl;
 import dao.custom.impl.BookDaoImpl;
+import dao.custom.impl.MemberDaoImpl;
 
 
 public class DaoFactory {
@@ -20,6 +21,8 @@ public class DaoFactory {
                 return (T) new BookCategoryDaoImpl();
             case Books:
                 return (T) new BookDaoImpl();
+            case Members:
+                return (T) new MemberDaoImpl();
             default:
                 return null;
         }

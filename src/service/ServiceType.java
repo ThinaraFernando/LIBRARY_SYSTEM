@@ -1,6 +1,6 @@
 package service;
 
 public enum ServiceType {
-    BookCategory,Books,Members
+    BookCategory,Books,Members,IssueBooks
 
 }

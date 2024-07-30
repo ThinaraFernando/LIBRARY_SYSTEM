@@ -1,5 +1,6 @@
 package dao.custom;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.SuperDao;
@@ -16,4 +17,6 @@ public interface BookDao extends SuperDao {
     BookEntity getBookEntity(String code) throws Exception;
 
     ArrayList<BookEntity> getAll() throws Exception;
+
+    boolean updateBookQty(String bookId, int qty) throws SQLException;
 }

@@ -1,5 +1,5 @@
 package dao;
 
 public enum DaoType {
-    BookCategory,Books,Members
+    BookCategory,Books,Members,IssueBooks,IssueBooksDetails
 }

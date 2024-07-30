@@ -94,4 +94,14 @@ public class BookDaoImpl implements BookDao {
         }
         return books;
     }
+
+    @Override
+    public boolean updateBookQty(String bookId, int qty) throws SQLException {
+        String sql = "UPDATE book SET quantity = quantity + ? WHERE book_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, qty);
+            stmt.setString(2, bookId);
+            return stmt.executeUpdate() > 0;
+        }
+    }
 }

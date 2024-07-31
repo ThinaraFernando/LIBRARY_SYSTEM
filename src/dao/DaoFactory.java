@@ -4,7 +4,9 @@ import dao.custom.impl.BookCategoryDaoImpl;
 import dao.custom.impl.BookDaoImpl;
 import dao.custom.impl.IssueBookDaoImpl;
 import dao.custom.impl.IssueBookDetailDaoImpl;
+import dao.custom.impl.LoginDaoImpl;
 import dao.custom.impl.MemberDaoImpl;
+import dao.custom.impl.QueryDaoImpl;
 import dao.custom.impl.ReturBookDaoImpl;
 
 
@@ -32,7 +34,10 @@ public class DaoFactory {
                 return (T) new IssueBookDetailDaoImpl();
             case ReturnBook:
                 return (T) new ReturBookDaoImpl();
-            
+            case LOGIN:
+                return (T)new LoginDaoImpl();
+            case QUERY:
+                return (T) new QueryDaoImpl();
             
             default:
                 return null;

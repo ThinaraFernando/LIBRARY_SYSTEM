@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class MemberDaoImpl implements MemberDao {
+    
     private Connection connection;
 
     public MemberDaoImpl() {

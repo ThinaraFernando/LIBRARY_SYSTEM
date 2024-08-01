@@ -158,7 +158,6 @@ public class ReturnController {
             if (returnBookDto != null) { 
                 txtMemberName.setText(returnBookDto.getMemberName());
                 txtBookId.setText(String.valueOf(returnBookDto.getBookId()));
-                // No need to handle returnIdTextField here anymore
             } else {
                 showError("No return book details found for member ID: " + memberId);
             }

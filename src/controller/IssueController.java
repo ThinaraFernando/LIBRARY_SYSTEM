@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import service.ServiceFactory;
@@ -31,9 +32,7 @@ public class IssueController {
     @FXML
     private JFXButton btnIssueBook;
 
-    @FXML
-    private JFXButton btnSearch;
-
+   
     @FXML
     private JFXButton btnBack;
 
@@ -80,7 +79,19 @@ public class IssueController {
 
      public void initialize() {
         issueBookService = ServiceFactory.getInstance().getService(ServiceType.IssueBooks);
+         
+
+
+        
+        
     }
+
+  
+
+
+   
+    
+
 
 
     @FXML
@@ -110,28 +121,27 @@ public class IssueController {
 
     
 
-    @FXML
-    void btnSearchOnAction(ActionEvent event) {
+     @FXML
+    void onMemberIdEntered(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
         try {
             String memberId = txtMemberId.getText();
-
             if (memberId.isEmpty()) {
-                showAlert(Alert.AlertType.WARNING, "Warning", "Please enter a member ID");
+                showAlert(Alert.AlertType.WARNING, "Warning", "Member ID cannot be empty.");
                 return;
             }
 
+            // Assuming the service method getMemberNameById retrieves the member name based on member ID
             String memberName = issueBookService.getMemberNameById(memberId);
-
             if (memberName != null) {
                 tblMemberName.setText(memberName);
             } else {
-                showAlert(Alert.AlertType.WARNING, "Not Found", "No member found with ID: " + memberId);
+                showAlert(Alert.AlertType.WARNING, "Warning", "No member found with ID: " + memberId);
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to search member: " + e.getMessage());
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to retrieve member details: " + e.getMessage());
         }
+    }
 
     }
 

@@ -22,7 +22,7 @@ public class QueryDaoImpl implements QueryDao {
 
     @Override
     public int getTotalBooks() throws Exception {
-        String query = "SELECT COUNT(*) FROM books";
+        String query = "SELECT COUNT(*) FROM book";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -34,7 +34,7 @@ public class QueryDaoImpl implements QueryDao {
 
     @Override
     public int getTotalIssuedBooks() throws Exception {
-        String query = "SELECT COUNT(*) FROM issued_books";
+        String query = "SELECT COUNT(*) FROM issuedetail";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -46,7 +46,7 @@ public class QueryDaoImpl implements QueryDao {
 
     @Override
     public int getTotalMembers() throws Exception {
-        String query = "SELECT COUNT(*) FROM members";
+        String query = "SELECT COUNT(*) FROM member";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -58,7 +58,7 @@ public class QueryDaoImpl implements QueryDao {
 
     @Override
     public int getTotalReturnBooks() throws Exception {
-        String query = "SELECT COUNT(*) FROM returned_books";
+        String query = "SELECT COUNT(*) FROM bookreturn";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

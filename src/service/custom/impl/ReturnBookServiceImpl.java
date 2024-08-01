@@ -93,17 +93,17 @@ public class ReturnBookServiceImpl implements ReturnBookService {
 
     @Override
     public ReturnBookDto getReturnBookDetailsByMemberId(int memberId) throws Exception {
-        ReturnBookEntity returnBookEntity = returnBookDao.getReturnBookDetailsByMemberId(memberId);
-        return new ReturnBookDto(
-                returnBookEntity.getReturnId(),
-                returnBookEntity.getMemberId(),
-                returnBookEntity.getMemberName(),
-                returnBookEntity.getBookId(),
-                returnBookEntity.getReturnDate(),
-                returnBookEntity.getDateElapsed(),
-                returnBookEntity.getFine()
-        );
-    }   
+        ReturnBookEntity returnBookEntity = returnBookDao.findByMemberId(memberId);
+        
+        if (returnBookEntity == null) {
+            throw new IllegalArgumentException("No return book details found for memberId: " + memberId);
+        }
+        
+        ReturnBookDto returnBookDto = new ReturnBookDto();
+        returnBookDto.setReturnId(returnBookEntity.getReturnId());
+        // Set other properties of returnBookDto as needed
+        return returnBookDto;
+    }
  }
 
    

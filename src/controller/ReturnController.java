@@ -2,7 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 import com.jfoenix.controls.JFXButton;
@@ -106,62 +108,70 @@ public class ReturnController {
     }
     @FXML
     void btnReturnOnAction(ActionEvent event) {
-        try {
-            if (txtMemberId.getText().isEmpty() || txtBookId.getText().isEmpty() || txtDueDate.getText().isEmpty()) {
-                showAlert("Error", "Please fill in all required fields.");
-                return;
-            }
-
-            int memberId = Integer.parseInt(txtMemberId.getText());
-            int bookId = Integer.parseInt(txtBookId.getText());
-            LocalDate dueDate = LocalDate.parse(txtDueDate.getText());
-            LocalDate returnDate = LocalDate.now();
-
-            long daysElapsed = ChronoUnit.DAYS.between(dueDate, returnDate);
-            BigDecimal fine = BigDecimal.ZERO;
-
-            if (daysElapsed > 0) {
-                fine = BigDecimal.valueOf(daysElapsed * 100);
-            }
-
-            ReturnBookDto returnBookDto = new ReturnBookDto();
-            returnBookDto.setMemberId(memberId);
-            returnBookDto.setBookId(bookId);
-            returnBookDto.setReturnDate(returnDate);
-            returnBookDto.setDateElapsed((int) daysElapsed);
-            returnBookDto.setFine(fine);
-
-            returnBookService.addReturnBook(returnBookDto);
-            showAlert("Success", "Book returned successfully.");
-            clearFields();
-            loadReturnBookDetails();
-
-        } catch (NumberFormatException e) {
-            showAlert("Error", "Invalid number format.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Error", "An error occurred while processing the return.");
+          try {
+        if (txtMemberId.getText().isEmpty() || txtBookId.getText().isEmpty() || txtDueDate.getText().isEmpty()) {
+            showAlert("Error", "Please fill in all required fields.");
+            return;
         }
+
+        int memberId = Integer.parseInt(txtMemberId.getText());
+        int bookId = Integer.parseInt(txtBookId.getText());
+        LocalDate dueDate = LocalDate.parse(txtDueDate.getText());
+        LocalDate returnDate = LocalDate.now();
+
+        long daysElapsed = ChronoUnit.DAYS.between(dueDate, returnDate);
+        BigDecimal fine = BigDecimal.ZERO;
+
+        if (daysElapsed > 0) {
+            fine = BigDecimal.valueOf(daysElapsed * 100);
+        }
+
+        ReturnBookDto returnBookDto = new ReturnBookDto();
+        returnBookDto.setMemberId(memberId);
+        returnBookDto.setBookId(bookId);
+        returnBookDto.setReturnDate(returnDate);
+        returnBookDto.setDateElapsed((int) daysElapsed);
+        returnBookDto.setFine(fine);
+
+        returnBookService.addReturnBook(returnBookDto);
+        showAlert("Success", "Book returned successfully.");
+        clearFields();
+        loadReturnBookDetails();
+
+    } catch (NumberFormatException e) {
+        showAlert("Error", "Invalid number format.");
+    } catch (DateTimeParseException e) {
+        showAlert("Error", "Invalid date format.");
+    } catch (SQLException e) {
+        showAlert("Error", "Database error: " + e.getMessage());
+    } catch (Exception e) {
+        e.printStackTrace();
+        showAlert("Error", "An unexpected error occurred.");
+    }
     }
     @FXML
     void onMemberIdEntered(KeyEvent event) {
+         try {
         if (event.getCode() == KeyCode.ENTER) {
             int memberId = Integer.parseInt(txtMemberId.getText());
-            try {
-                ReturnBookDto returnBookDto = returnBookService.getReturnBookDetailsByMemberId(memberId);
-                if (returnBookDto != null) {
-                    txtMemberName.setText(returnBookDto.getMemberName());
-                    txtBookId.setText(String.valueOf(returnBookDto.getBookId()));
-                    txtDueDate.setText(returnBookDto.getReturnDate().toString());
-
-                    returnBookService.calculateFine(returnBookDto);
-                    txtDaysElapsed.setText(String.valueOf(returnBookDto.getDateElapsed()));
-                    txtFine.setText(returnBookDto.getFine().toString());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            ReturnBookDto returnBookDto = returnBookService.getReturnBookDetailsByMemberId(memberId);
+            if (returnBookDto != null) { 
+                txtMemberName.setText(returnBookDto.getMemberName());
+                txtBookId.setText(String.valueOf(returnBookDto.getBookId()));
+                // No need to handle returnIdTextField here anymore
+            } else {
+                showError("No return book details found for member ID: " + memberId);
             }
         }
+    } catch (NumberFormatException e) {
+        showError("Invalid member ID");
+    } catch (IllegalArgumentException e) {
+        showError(e.getMessage());
+    } catch (SQLException e) {
+        showError("Database error: " + e.getMessage());
+    } catch (Exception e) {
+        showError("An unexpected error occurred: " + e.getMessage());
+    }
     }
 
     @FXML
@@ -193,6 +203,14 @@ private void clearFields() {
     txtDueDate.clear();
     txtDaysElapsed.clear();
     txtFine.clear();
+}
+
+private void showError(String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
 }
 }
 

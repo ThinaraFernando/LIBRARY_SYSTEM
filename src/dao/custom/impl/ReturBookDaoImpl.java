@@ -160,6 +160,24 @@ public class ReturBookDaoImpl implements ReturnBookDao {
         }
         return null;
     }   
+
+    @Override
+    public ReturnBookEntity findByMemberId(int memberId) throws SQLException {
+        String sql = "SELECT * FROM Bookreturn WHERE MemberID = ?";
+        try (PreparedStatement pst = connection.prepareStatement(sql)) {
+            pst.setInt(1, memberId);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    ReturnBookEntity returnBookEntity = new ReturnBookEntity();
+                    returnBookEntity.setReturnId(rs.getInt("ReturnID"));
+                    // Set other properties of returnBookEntity as needed
+                    return returnBookEntity;
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
  }
 
 

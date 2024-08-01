@@ -1,14 +1,22 @@
 package controller;
 
 import java.io.IOException;
+
+import com.jfoenix.controls.JFXButton;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class DashBoardController {
+
+       @FXML
+    private JFXButton btnLogout;
+
     @FXML
     private AnchorPane root;
 
@@ -60,13 +68,15 @@ public class DashBoardController {
     @FXML
     void btnLogoutOnAction(ActionEvent event) {
         try {
-            Stage stage = (Stage) root.getScene().getWindow();
-            stage.setTitle("Login Form");
-            stage.centerOnScreen();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"))));
-        } catch (IOException e) {
-            e.printStackTrace();  // Log the exception
-        }
+        Stage stage = (Stage) btnLogout.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DashBoardForm.fxml")); // Update the path accordingly
+        AnchorPane root = loader.load();
+        stage.setTitle("Dashboard");
+        stage.setScene(new Scene(root));
+    } catch (IOException e) {
+        showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the dashboard.");
+        e.printStackTrace();
+    }
     }
 
     @FXML
@@ -101,5 +111,13 @@ public class DashBoardController {
         } catch (IOException e) {
             e.printStackTrace();  // Log the exception
         }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

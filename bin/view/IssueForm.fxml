@@ -58,12 +58,11 @@
          <font>
             <Font name="Leelawadee Bold" size="24.0" />
          </font></JFXButton>
-      <TextField fx:id="txtMemberId" layoutX="186.0" layoutY="90.0" prefHeight="24.0" prefWidth="128.0" />
+      <TextField fx:id="txtMemberId" layoutX="186.0" layoutY="90.0" onKeyPressed="#onMemberIdEntered" prefHeight="27.0" prefWidth="244.0" />
       <TextField fx:id="tblMemberName" layoutX="192.0" layoutY="158.0" prefHeight="26.0" prefWidth="244.0" />
       <TextField fx:id="txtBookId" layoutX="192.0" layoutY="234.0" prefHeight="19.0" prefWidth="244.0" />
       <DatePicker fx:id="datePickerIssueDate" layoutX="192.0" layoutY="312.0" prefHeight="23.0" prefWidth="244.0" promptText="Enter Date" />
       <DatePicker fx:id="datePickerDueDate" layoutX="192.0" layoutY="393.0" prefHeight="23.0" prefWidth="244.0" promptText="Enter Date" />
-      <JFXButton fx:id="btnSearch" buttonType="RAISED" layoutX="336.0" layoutY="90.0" onAction="#btnSearchOnAction" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #FC427B; -fx-border-radius: 20px;" text="Search" />
       <JFXButton fx:id="btnBack" onAction="#btnBackOnAction" prefHeight="27.0" prefWidth="78.0" style="-fx-background-color: #EAB543;" text="&gt;&gt;BACK" />
    </children>
 </AnchorPane>

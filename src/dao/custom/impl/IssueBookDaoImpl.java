@@ -27,7 +27,7 @@ public class IssueBookDaoImpl implements IssueBookDao {
 
     @Override
     public boolean createIssue(IssueDto issueDTO) throws SQLException {
-        String sql = "INSERT INTO issue (issue_id, member_id, issue_date, due_date) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO issue (IssueID, MemberID, IssueDate, DueDate) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, issueDTO.getIssueId());
             stmt.setString(2, issueDTO.getMemberId());
@@ -38,7 +38,7 @@ public class IssueBookDaoImpl implements IssueBookDao {
 
     @Override
     public IssueDto getIssueById(String issueId) throws SQLException {
-        String sql = "SELECT * FROM issue WHERE issue_id = ?";
+        String sql = "SELECT * FROM issue WHERE IssueID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, issueId);
             ResultSet rs = stmt.executeQuery();
@@ -61,10 +61,10 @@ List<IssueDto> issues = new ArrayList<>();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 issues.add(new IssueDto(
-                    rs.getString("issue_id"),
-                    rs.getString("member_id"),
-                    rs.getDate("issue_date").toLocalDate(),
-                    rs.getDate("due_date").toLocalDate()
+                    rs.getString("IssueID"),
+                    rs.getString("MemberID"),
+                    rs.getDate("IssueDate").toLocalDate(),
+                    rs.getDate("DueDate").toLocalDate()
                 ));
             }
         }
@@ -72,7 +72,7 @@ List<IssueDto> issues = new ArrayList<>();
 
     @Override
     public String getMemberNameById(String memberId) throws SQLException {
-        String sql = "SELECT name FROM member WHERE member_id = ?";
+        String sql = "SELECT name FROM member WHERE MemberID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, memberId);
             ResultSet rs = stmt.executeQuery();

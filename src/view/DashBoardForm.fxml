@@ -51,7 +51,7 @@
                         <Font name="AGaramondPro-Bold" size="32.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton onAction="#btnLogoutOnAction" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #d63031;" text="Logout" textFill="#1b1a1a">
+                  <JFXButton fx:id="btnLogout" onAction="#btnLogoutOnAction" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #d63031;" text="Logout" textFill="#1b1a1a">
                      <font>
                         <Font name="AGaramondPro-Regular" size="36.0" />
                      </font>

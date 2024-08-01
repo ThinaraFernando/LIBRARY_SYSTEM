@@ -79,6 +79,11 @@ public class IssueBookServiceImpl implements IssueBookService{
         return issueBookDao.getMemberNameById(memberId);
     }
 
+    @Override
+    public List<IssueDetailDto> getAllIssueDetails() throws SQLException {
+        return issueBookDetailDao.getAllIssueDetails();
+    }
+
     
 
     

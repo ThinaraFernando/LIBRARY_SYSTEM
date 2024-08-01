@@ -5,6 +5,8 @@ public class IssueDetailDto {
     private String IssueDetailId;
     private String IssueId;
     private String BookId;
+    private IssueDto issueDto;
+
 
     public IssueDetailDto() {
 
@@ -38,6 +40,14 @@ public class IssueDetailDto {
 
     public void setBookId(String bookId) {
         BookId = bookId;
+    }
+
+    public IssueDto getIssueDto() {
+        return issueDto;
+    }
+
+    public void setIssueDto(IssueDto issueDto) {
+        this.issueDto = issueDto;
     }
 
     @Override

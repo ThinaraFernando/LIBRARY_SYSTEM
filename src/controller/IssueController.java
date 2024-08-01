@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -75,25 +77,35 @@ public class IssueController {
     @FXML
     private TextField txtMemberId;
 
+    
+
     private IssueBookService issueBookService;
 
      public void initialize() {
         issueBookService = ServiceFactory.getInstance().getService(ServiceType.IssueBooks);
-         
 
+        colBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+    colDueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+    colId.setCellValueFactory(new PropertyValueFactory<>("issueDetailId"));
+    colIssueDate.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
+    colMemberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
 
-        
-        
+    loadTableData();
+    datePickerIssueDate.setValue(LocalDate.now());
+    datePickerDueDate.setValue(LocalDate.now().plusWeeks(2));
+}
+
+private void loadTableData() {
+    try {
+        List<IssueDetailDto> issueDetails = issueBookService.getAllIssueDetails();
+        tblIssueBookDetails.getItems().setAll(issueDetails);
+    } catch (SQLException e) {
+        showAlert(Alert.AlertType.ERROR, "Error", "Failed to load issue details: " + e.getMessage());
     }
+}
+
 
   
-
-
-   
-    
-
-
-
     @FXML
     void btnIsssueBookOnAction(ActionEvent event) {
         try {

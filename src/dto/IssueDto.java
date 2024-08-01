@@ -11,7 +11,6 @@ public class IssueDto {
     private LocalDate dueDate;
     private List<IssueDetailDto> issueDetails;
 
-    // Constructor with required fields
     public IssueDto(String issueId, String memberId, LocalDate issueDate, LocalDate dueDate) {
         this.issueId = issueId;
         this.memberId = memberId;
@@ -19,7 +18,6 @@ public class IssueDto {
         this.dueDate = dueDate;
     }
 
-    // Constructor with all fields
     public IssueDto(String issueId, String memberId, LocalDate issueDate, LocalDate dueDate, List<IssueDetailDto> issueDetails) {
         this.issueId = issueId;
         this.memberId = memberId;
@@ -28,7 +26,6 @@ public class IssueDto {
         this.issueDetails = issueDetails;
     }
 
-    // Getters and Setters
     public String getIssueId() {
         return issueId;
     }

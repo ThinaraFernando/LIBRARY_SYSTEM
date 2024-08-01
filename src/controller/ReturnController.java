@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -11,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import service.ServiceFactory;
 import service.ServiceType;
 import service.custom.ReturnBookService;
@@ -27,6 +31,9 @@ public class ReturnController {
    @FXML
     private JFXButton btnReturnBook;
 
+    @FXML
+    private JFXButton btnBack;
+    
     @FXML
     private TableColumn<ReturnBookDto, Integer> colBookName;
 
@@ -155,6 +162,21 @@ public class ReturnController {
                 e.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    void btnBackOnAction(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/DashBoardForm.fxml"));
+            AnchorPane root = loader.load();
+            stage.setTitle("Dashboard");
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            showAlert( "Error", "An error occurred while loading the dashboard.");
+            e.printStackTrace();
+        }
+
     }
 
     private void showAlert(String title, String message) {

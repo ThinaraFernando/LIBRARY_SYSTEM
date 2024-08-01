@@ -54,5 +54,6 @@
       <TextField fx:id="txtAddress" layoutX="192.0" layoutY="285.0" prefHeight="19.0" prefWidth="244.0" />
       <TextField fx:id="txtPhone" layoutX="192.0" layoutY="373.0" prefHeight="18.0" prefWidth="244.0" />
       <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="340.0" layoutY="495.0" onAction="#btnDeleteOnAction" prefHeight="27.0" prefWidth="70.0" style="-fx-background-color: #FC427B; -fx-border-radius: 20;" text="DELETE" />
+      <JFXButton fx:id="btnBack" onAction="#btnBackOnAction" prefHeight="27.0" prefWidth="78.0" style="-fx-background-color: #EAB543;" text="&gt;&gt;BACK" />
    </children>
 </AnchorPane>

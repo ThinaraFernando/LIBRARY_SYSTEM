@@ -66,5 +66,6 @@
             <TableColumn fx:id="colFine" prefWidth="76.800048828125" text="Fine" />
          </columns>
       </TableView>
+      <JFXButton fx:id="btnBack" onAction="#btnBackOnAction" prefHeight="27.0" prefWidth="78.0" style="-fx-background-color: #EAB543;" text="&gt;&gt;BACK" />
    </children>
 </AnchorPane>

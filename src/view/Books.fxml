@@ -70,5 +70,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <JFXButton fx:id="btnBack" onAction="#btnBackOnAction" prefHeight="27.0" prefWidth="78.0" style="-fx-background-color: #EAB543;" text="&gt;&gt;BACK" />
    </children>
 </AnchorPane>

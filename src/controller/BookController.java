@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import com.jfoenix.controls.JFXButton;
 
 import dto.BookDto;
@@ -7,12 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import service.ServiceFactory;
 import service.ServiceType;
 import service.custom.BookService;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,6 +33,9 @@ public class BookController {
 
     @FXML
     private JFXButton btnUpdate;
+
+    @FXML
+    private JFXButton btnBack;
 
     @FXML
     private TableColumn<BookDto, String> colAuthor;
@@ -172,6 +180,21 @@ public class BookController {
         } catch (Exception e) {
             e.printStackTrace(); 
             showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updating the book.");
+        }
+
+    }
+
+    @FXML
+    void btnBackOnAction(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/DashBoardForm.fxml"));
+            AnchorPane root = loader.load();
+            stage.setTitle("Dashboard");
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the dashboard.");
+            e.printStackTrace();
         }
 
     }

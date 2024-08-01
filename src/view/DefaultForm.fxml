@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -55,5 +56,6 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
+      <JFXButton fx:id="btnBack" layoutX="-4.0" onAction="#btnBackOnAction" prefHeight="27.0" prefWidth="78.0" style="-fx-background-color: #EAB543;" text="&gt;&gt;BACK" />
    </children>
 </AnchorPane>

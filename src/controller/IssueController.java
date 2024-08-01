@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,11 +12,14 @@ import dto.IssueDetailDto;
 import dto.IssueDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import service.ServiceFactory;
 import service.ServiceType;
 import service.custom.IssueBookService;
@@ -29,6 +33,9 @@ public class IssueController {
 
     @FXML
     private JFXButton btnSearch;
+
+    @FXML
+    private JFXButton btnBack;
 
     @FXML
     private TableColumn<IssueDetailDto, String> colBookId;
@@ -124,6 +131,21 @@ public class IssueController {
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to search member: " + e.getMessage());
+        }
+
+    }
+
+    @FXML
+    void btnBackOnAction(ActionEvent event) {
+        try {
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/DashBoardForm.fxml"));
+            AnchorPane root = loader.load();
+            stage.setTitle("Dashboard");
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the dashboard.");
+            e.printStackTrace();
         }
 
     }
